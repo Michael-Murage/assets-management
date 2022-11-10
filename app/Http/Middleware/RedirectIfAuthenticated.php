@@ -19,12 +19,27 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
+		// dd($guards);
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
+            // if (Auth::guard($guard)->check()) {
+            //     return redirect(RouteServiceProvider::HOME);
+            // }
+			// dd($guard);
+			switch ($guard) {
+				case 'official':
+					if (Auth::guard($guard)->check()) {
+						return redirect('/official-home');
+					}
+					break;
+				
+				default:
+					if (Auth::guard($guard)->check()) {
+						return redirect(RouteServiceProvider::HOME);
+					}
+					break;
+			}
         }
 
         return $next($request);

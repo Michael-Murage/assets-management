@@ -8,8 +8,10 @@ import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
+        first_name: '',
+		last_name: '',
         email: '',
+		id_number: '',
         password: '',
         password_confirmation: '',
     });
@@ -36,21 +38,56 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel forInput="name" value="Name" />
+                    <InputLabel forInput="first_name" value="First Name" />
 
                     <TextInput
                         type="text"
-                        name="name"
-                        value={data.name}
+                        name="first_name"
+                        value={data.first_name}
                         className="mt-1 block w-full"
-                        autoComplete="name"
+                        autoComplete="first_name"
                         isFocused={true}
                         handleChange={onHandleChange}
                         required
                     />
 
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={errors.first_name} className="mt-2" />
+				</div>
+
+				<div>
+					<InputLabel forInput="last_name" value="Last Name" />
+
+                    <TextInput
+                        type="text"
+                        name="last_name"
+                        value={data.last_name}
+                        className="mt-1 block w-full"
+                        autoComplete="last_name"
+                        isFocused={true}
+                        handleChange={onHandleChange}
+                        required
+                    />
+
+                    <InputError message={errors.last_name} className="mt-2" />
                 </div>
+
+				<div>
+					<InputLabel forInput="id_number" value="ID Number" />
+
+                    <TextInput
+                        type="number"
+                        name="id_number"
+                        value={data.id_number}
+                        className="mt-1 block w-full"
+                        autoComplete="id_number"
+                        isFocused={true}
+                        handleChange={onHandleChange}
+                        required
+                    />
+
+                    <InputError message={errors.id_number} className="mt-2" />
+                </div>
+
 
                 <div className="mt-4">
                     <InputLabel forInput="email" value="Email" />

@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Official;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\RegisteredOfficial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 
-class RegisteredUserController extends Controller
+class RegisteredOfficialController extends Controller
 {
     /**
      * Display the registration view.
@@ -21,7 +21,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/RegisterOfficial');
     }
 
     /**
@@ -37,12 +37,12 @@ class RegisteredUserController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
 			'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:'.User::class,
-			'id_number' => 'required|integer|min:8|unique:'.User::class,
+            'email' => 'required|string|email|max:255|unique:'.Official::class,
+			'id_number' => 'required|integer|min:8|unique:'.Official::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        $official = Official::create([
             'first_name' => $request->first_name,
 			'last_name' => $request->last_name,
             'email' => $request->email,
@@ -50,10 +50,11 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        event(new Registered($official));
 
-        Auth::login($user);
+        Auth::guard('official')->login($official);
 
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::OFFICIALHOME);
+		return redirect('/official-home');
     }
 }

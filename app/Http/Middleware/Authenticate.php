@@ -19,3 +19,18 @@ class Authenticate extends Middleware
         }
     }
 }
+
+// if (! $request->expectsJson()) {
+// 	$guard = array_get($exception->guards(), 0);
+
+// 	switch ($guard) {
+// 		case 'official':
+// 			$login = 'official-login';
+// 			break;
+		
+// 		default:
+// 			$login = 'login';
+// 			break;
+// 	}
+// 	return route($login);
+// }

@@ -26,6 +26,7 @@ export default function Welcome(props) {
                         </>
                     )}
                 </div>
+				Welcome
             </div>
         </>
     );

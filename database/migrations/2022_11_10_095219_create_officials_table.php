@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('allocations', function (Blueprint $table) {
+        Schema::create('officials', function (Blueprint $table) {
             $table->id();
-			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
-			$table->foreignId('official_id')->constrained()->cascadeOnDelete();
-			$table->integer('amount_allocated');
+            $table->string('first_name');
+			$table->string('last_name');
+			$table->integer('id_number')->unique();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('allocations');
+        Schema::dropIfExists('officials');
     }
 };

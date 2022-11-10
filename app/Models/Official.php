@@ -2,18 +2,20 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\Official as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+// use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Official extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+	protected $guard = 'official';
+	
 	/**
-     * Get the user that is being given the allocation.
+     * Get the official that is giving the allocation.
      */
 	public function allocation()
 	{
@@ -28,12 +30,7 @@ class User extends Authenticatable
 		return $this->hasMany(Application::class);
 	}
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
+	protected $fillable = [
         'first_name',
 		'last_name',
 		'id_number',
@@ -41,22 +38,12 @@ class User extends Authenticatable
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
+	protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
+	protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 }
