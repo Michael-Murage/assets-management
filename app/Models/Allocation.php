@@ -31,4 +31,10 @@ class Allocation extends Model
 	{
 		return $this->belongsTo(Application::class);
 	}
+
+	protected $fillable = [
+		'user_id',
+		'official_id',
+		'amount_allocated'
+	];
 }

@@ -31,4 +31,12 @@ class Application extends Model
 	{
 		return $this->hasOne(Allocation::class);
 	}
+
+	protected $fillable = [
+		'user_id',
+		'official_id',
+		'description',
+		'amount_requesting',
+		'status'
+	];
 }

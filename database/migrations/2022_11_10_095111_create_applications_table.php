@@ -19,6 +19,7 @@ return new class extends Migration
 			$table->foreignId('official_id')->constrained()->cascadeOnDelete()->nullable();
 			$table->text('description');
 			$table->integer('amount_requesting');
+			$table->string('status')->nullable();
             $table->timestamps();
         });
     }

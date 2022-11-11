@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/official', function (Request $request) {
     return $request->official();
 });
+
+Route::get('applications', [ApplicationController::class, 'index']);
+
+Route::post('applications', [ApplicationController::class, 'store']);

@@ -54,7 +54,6 @@ class RegisteredOfficialController extends Controller
 
         Auth::guard('official')->login($official);
 
-        // return redirect(RouteServiceProvider::OFFICIALHOME);
 		return redirect('/official-home');
     }
 }

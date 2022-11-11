@@ -27,10 +27,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::resource('allocations', AllocationController::class)
-	->only(['index', 'store'])
-	->middleware(['auth', 'verified']);
-
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -54,5 +50,9 @@ Route::post('official-login', [AuthenticatedOfficialController::class, 'store'])
 Route::post('logout', function(Request $request){
 	$request->session()->flush();
 })->name('logout');
+
+Route::get('newapplication', function(){
+	return Inertia::render('NewApplication');
+})->middleware(['auth', 'verified'])->name('newapplication');
 
 require __DIR__.'/auth.php';

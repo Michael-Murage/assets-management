@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
@@ -14,7 +15,11 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+		$id = Auth::id();
+		$user = Auth::user();
+        $session = session()->all();
+		// dd();
+        return response()->json('index');
     }
 
     /**
@@ -24,7 +29,7 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -35,7 +40,21 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+			'amount_requesting' => 'required|integer|min:4',
+			'description' => 'required|string'
+		]);
+
+		$application = Application::create([
+			'user_id' => $request->user_id,
+			'description' => $request->description,
+			'amount_requesting' => $request->amount_requesting,
+			'official_id' => 1
+		]);
+		return response()->json([
+			'success' => 'application received',
+			'application' => $application
+		]);
     }
 
     /**
