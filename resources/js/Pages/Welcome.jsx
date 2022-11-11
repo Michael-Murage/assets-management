@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Head } from '@inertiajs/inertia-react';
 
 export default function Welcome(props) {
+	console.log(props);
     return (
         <>
             <Head title="Welcome" />
@@ -22,6 +23,13 @@ export default function Welcome(props) {
                                 className="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
                             >
                                 Register
+                            </Link>
+
+							<Link
+                                href={route('official-login')}
+                                className="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
+                            >
+                                Official
                             </Link>
                         </>
                     )}

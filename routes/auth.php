@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\AuthenticatedOfficialController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
@@ -38,11 +37,6 @@ Route::middleware('guest')->group(function () {
 	
 });
 
-Route::get('official-login', [AuthenticatedOfficialController::class, 'create'])
-->name('official-login');
-
-Route::post('official-login', [AuthenticatedOfficialController::class, 'store']);
-
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
@@ -60,6 +54,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->name('logout');
+	// [AuthenticatedSessionController::class, 'destroy'])
+    //->name('logout')    
 });

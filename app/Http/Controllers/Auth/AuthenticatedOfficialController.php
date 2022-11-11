@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-// use App\Models\Official;
-// use Illuminate\Support\Facades\Hash;
+use App\Models\Official;
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticatedOfficialController extends Controller
 {
@@ -46,10 +46,14 @@ class AuthenticatedOfficialController extends Controller
 			'password' => ['required']
 		]);
 
-		if (Auth::attempt($credentials)){
-			$request->session()->regenerate();
+		$details = Official::where('email', $request->email)->get();
+		$pass_check = Hash::check($request->password, $details[0]->password);
+		
 
-			return redirect()->intended(RouteServiceProvider::OFFICIALHOME);
+		if ($pass_check){
+			$request->session()->put('key', $details[0]->id);
+
+			return redirect('/official-dashboard');
 		}
         // $request->authenticate();
 		// $x = Official::where('email', $request->email)->get();
@@ -70,7 +74,8 @@ class AuthenticatedOfficialController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        // Auth::guard('web')->logout();
+		$request->session()->flush();
 
         $request->session()->invalidate();
 

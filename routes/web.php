@@ -4,6 +4,9 @@ use App\Http\Controllers\AllocationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Auth\AuthenticatedOfficialController;
+use Illuminate\Http\Request;
+use App\Models\Official;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +23,7 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+		'authenticated' => Auth::user()
     ]);
 });
 
@@ -33,8 +35,25 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/official-dashboard', function () {
-    return Inertia::render('OfficialDashboard');
-})->middleware(['auth:official', 'verified'])->name('official-dashboard');
+Route::get('/official-dashboard', function (Request $request) {
+	$session_id = $request->session()->get('key');
+	$official = Official::find($session_id);
+	if($official){
+		return Inertia::render('OfficialDashboard', [
+			'official' => $official
+		]);
+	}
+	return redirect('/official-login');
+});
+// ->middleware(['guest:official'])->name('official-dashboard');
+
+Route::get('official-login', [AuthenticatedOfficialController::class, 'create'])
+->name('official-login');
+
+Route::post('official-login', [AuthenticatedOfficialController::class, 'store']);
+
+Route::post('logout', function(Request $request){
+	$request->session()->flush();
+})->name('logout');
 
 require __DIR__.'/auth.php';
