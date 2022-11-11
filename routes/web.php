@@ -45,7 +45,6 @@ Route::get('/official-dashboard', function (Request $request) {
 	}
 	return redirect('/official-login');
 });
-// ->middleware(['guest:official'])->name('official-dashboard');
 
 Route::get('official-login', [AuthenticatedOfficialController::class, 'create'])
 ->name('official-login');
