@@ -1,13 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/inertia-react';
+import moment from 'moment';
 
 export default function Dashboard(props) {
-
+	const [data, setData] = useState([]);
+	
 	useEffect(()=>{
 		fetch(`/api/applications`)
-		.then(res=>res.json().then(console.log))
+		.then(res=>{
+			if(res.ok){
+				res.json().then((items)=>{
+					setData(items.filter(item=> item.user_id === props.auth.user.id));
+				})
+			}else{
+				res.json().then(console.log)
+			}
+		})
 	},[])
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -26,6 +37,43 @@ export default function Dashboard(props) {
                             >
                                 New application
                         </Link>
+						<hr/>
+						<div className='application-cards'>
+							{
+								(Array.isArray(data) ? data : []).map((application) => {
+									let date = new Date(application.created_at)
+									let differenceInMs = Math.abs(new Date() - date)
+									let newFormat = new moment.duration(differenceInMs)
+									return (
+									<div className="flex justify-center m-3 border single-card" key={application.id}>
+									  <div className="block rounded-lg shadow-lg bg-white max-w-sm text-center">
+									    <div className="py-3 px-6 border-b border-gray-300">
+									      Status: {application.status ? application.status : "Initiated"}
+									    </div>
+									    <div className="p-6">
+									      <h5 className="text-gray-900 text-xl font-medium mb-2">{application.amount_requesting}</h5>
+										  {/* <div className="description">
+											<p className="text-gray-700 text-base mb-4">
+									        	{application.description}
+									      	</p>
+										  </div> */}
+									      <textarea 
+										  	className='description block w-full text-gray-700 rounded px-4 leading-tight'
+										  	value={application.description} 
+											rows='3'
+											disabled
+											/>
+									      {/* <button type="button" className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button> */}
+									    </div>
+									    <div className="py-3 px-6 border-t border-gray-300 text-gray-600">
+									      {newFormat._data.days} days ago at {application.created_at.slice(11, 16)} hrs
+									    </div>
+									  </div>
+									</div>
+									)
+								})
+							}
+						</div>
                     </div>
                 </div>
             </div>

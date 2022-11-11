@@ -15,11 +15,8 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-		$id = Auth::id();
-		$user = Auth::user();
-        $session = session()->all();
-		// dd();
-        return response()->json('index');
+		$applications = Application::all();
+        return response()->json($applications);
     }
 
     /**

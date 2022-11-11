@@ -8,3 +8,16 @@
 .submit-application{
 	background-color: rgb(67, 67, 255);
 }
+.application-cards{
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+.single-card{
+	width: 15em;
+	max-height: 16em;
+}
+.description{
+	resize: none;
+	border: none;
+}
