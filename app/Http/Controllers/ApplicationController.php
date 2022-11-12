@@ -86,6 +86,7 @@ class ApplicationController extends Controller
     {
         $application = Application::find($request->id);
 		$application->status = $request->status;
+		$application->save();
 		return response()->json(["success" => "status updated"]);
     }
 

@@ -29,7 +29,7 @@ Route::get('applications', [ApplicationController::class, 'index']);
 
 Route::post('applications', [ApplicationController::class, 'store']);
 
-Route::patch('applications', [ApplicationController::class, 'edit']);
+Route::patch('applications', [ApplicationController::class, 'update']);
 
 Route::get('users', [UserController::class, 'index']);
 

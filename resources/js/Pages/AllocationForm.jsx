@@ -1,6 +1,7 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Link } from '@inertiajs/inertia-react'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 function AllocationForm(props) {
 	const [status, setStatus] = useState('Pending');
@@ -39,16 +40,31 @@ function AllocationForm(props) {
 		})
 	}
 
-	function handleSubmit(event) {
+	const handleSubmit = async (event) => {
 		event.preventDefault()
+		// try {
+		// 	const resp = await fetch(`/api/allocations`, {
+		// 		method: "POST",
+		// 		headers: {
+		// 			"Content-Type": "application/json"
+		// 		},
+		// 		body: JSON.stringify({
+		// 			official_id: data.official_id,
+		// 			user_id: data.user_id,
+		// 			comment: data.comment,
+		// 			amount_allocated: status === "Accepted" ? data.amount_allocated : null
+		// 		})
+		// 	})
+		// 	if(resp.ok){
+		// 		const jsonResponse = await resp.json();
+		// 		console.log(jsonResponse);
+		// 	}
+		// } catch (error) {
+		// 	toast(error.message)
+		// }
 		fetch('/api/allocations',{
 			method: "POST", headers:{'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				official_id: data.official_id,
-				user_id: data.user_id,
-				comment: data.comment,
-				amount_allocated: status === "Accepted" ? data.amount_allocated : null
-			})
+			body: JSON.stringify(data)
 		})
 		.then(res=>{
 			if(res.ok){

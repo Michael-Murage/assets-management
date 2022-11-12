@@ -35,6 +35,7 @@ class Allocation extends Model
 	protected $fillable = [
 		'user_id',
 		'official_id',
-		'amount_allocated'
+		'amount_allocated',
+		'comment'
 	];
 }
