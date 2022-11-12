@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AllocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,11 @@ Route::middleware('auth:sanctum')->get('/official', function (Request $request) 
 Route::get('applications', [ApplicationController::class, 'index']);
 
 Route::post('applications', [ApplicationController::class, 'store']);
+
+Route::patch('applications', [ApplicationController::class, 'edit']);
+
+Route::get('users', [UserController::class, 'index']);
+
+Route::get('allocations', [AllocationController::class, 'index']);
+
+Route::post('allocations', [AllocationController::class, 'store']);

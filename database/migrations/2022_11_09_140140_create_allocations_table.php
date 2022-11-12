@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
 			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
 			$table->foreignId('official_id')->constrained()->cascadeOnDelete();
-			$table->integer('amount_allocated');
+			$table->integer('amount_allocated')->nullable();
+			$table->text('comment')->nullable();
             $table->timestamps();
         });
     }

@@ -1,6 +1,7 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Link } from '@inertiajs/inertia-react';
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 function NewApplication(props) {
 	const [data, setData] = useState({
@@ -17,7 +18,17 @@ function NewApplication(props) {
 		})
 		.then(res=>{
 			if(res.ok){
-				res.json().then(console.log)
+				res.json().then((message)=>toast.success(message.success, {
+						position: "top-center",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+					})
+				)
 				setData({
 					user_id: props?.auth.user.id,
 					description: '',

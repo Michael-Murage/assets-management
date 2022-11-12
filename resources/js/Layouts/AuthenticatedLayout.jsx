@@ -4,6 +4,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/inertia-react';
+import { ToastContainer } from 'react-toastify';
 
 export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -120,6 +121,18 @@ export default function Authenticated({ auth, header, children }) {
             )}
 
             <main>{children}</main>
+			<ToastContainer
+				position="top-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+				/>
         </div>
     );
 }

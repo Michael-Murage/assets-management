@@ -15,8 +15,9 @@ class AllocationController extends Controller
      */
     public function index()
     {
-        return 'Hi there';
-		return Inertia::render('Allocations/Index', []);
+        return response()->json('Hi there');
+		// return Inertia::render('Allocations/Index', []);
+
     }
 
     /**
@@ -37,7 +38,14 @@ class AllocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+		// dd(gettype($request->amount_allocated));
+        $allocation = Allocation::create([
+			"official_id" => intval($request->official_id),
+			"user_id" => intval($request->user_id),
+			"comment" => $request->comment,
+			"amount_allocated" => intval($request->amount_allocated)
+		]);
+		return response()->json(["success" => "Your response has been received"]);
     }
 
     /**

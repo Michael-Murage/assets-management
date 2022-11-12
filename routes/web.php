@@ -42,6 +42,10 @@ Route::get('/official-dashboard', function (Request $request) {
 	return redirect('/official-login');
 });
 
+Route::get('/official-menu', function (){
+	return Inertia::render('OfficialDashboard');
+})->name('official-dashboard');
+
 Route::get('official-login', [AuthenticatedOfficialController::class, 'create'])
 ->name('official-login');
 
@@ -54,5 +58,20 @@ Route::post('logout', function(Request $request){
 Route::get('newapplication', function(){
 	return Inertia::render('NewApplication');
 })->middleware(['auth', 'verified'])->name('newapplication');
+
+Route::get('allocation-form', function(Request $request){
+	$user_id = $request->query->get('user_id');
+	$application_id = $request->query->get('id');
+	$session_id = $request->session()->get('key');
+	$official = Official::find($session_id);
+	if($official){
+		return Inertia::render('AllocationForm', [
+			'official' => $official,
+			'user_id' => $user_id,
+			'application_id' => $application_id
+		]);
+	}
+	return redirect('/official-dashboard');
+})->name('allocation-form');
 
 require __DIR__.'/auth.php';

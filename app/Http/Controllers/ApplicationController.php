@@ -49,8 +49,7 @@ class ApplicationController extends Controller
 			'official_id' => 1
 		]);
 		return response()->json([
-			'success' => 'application received',
-			'application' => $application
+			'success' => 'application received'
 		]);
     }
 
@@ -85,7 +84,9 @@ class ApplicationController extends Controller
      */
     public function update(Request $request, Application $application)
     {
-        //
+        $application = Application::find($request->id);
+		$application->status = $request->status;
+		return response()->json(["success" => "status updated"]);
     }
 
     /**
