@@ -59,9 +59,10 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function show(Application $application)
+    public function show(Application $application, $id)
     {
-        //
+		$app = Application::find(intval($id));
+		return response()->json($app);
     }
 
     /**

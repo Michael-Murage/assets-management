@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Allocation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 // use Inertia\Inertia;
 
 class AllocationController extends Controller
@@ -43,7 +44,8 @@ class AllocationController extends Controller
 			"official_id" => intval($request->official_id),
 			"user_id" => intval($request->user_id),
 			"comment" => $request->comment,
-			"amount_allocated" => intval($request->amount_allocated)
+			"amount_allocated" => intval($request->amount_allocated),
+			"application_id" => intval($request->application_id)
 		]);
 		return response()->json(["success" => "Your response has been received"]);
     }
@@ -56,7 +58,7 @@ class AllocationController extends Controller
      */
     public function show(allocation $allocation)
     {
-        //
+		
     }
 
     /**
@@ -65,9 +67,11 @@ class AllocationController extends Controller
      * @param  \App\Models\allocation  $allocation
      * @return \Illuminate\Http\Response
      */
-    public function edit(allocation $allocation)
+    public function edit(allocation $allocation, Request $request, $key)
     {
-        //
+        $application_id = intval($key);
+		$allocation = DB::table('allocations')->where('application_id', $application_id)->get();
+		return response()->json($allocation[0]);
     }
 
     /**

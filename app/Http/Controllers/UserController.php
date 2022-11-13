@@ -11,4 +11,10 @@ class UserController extends Controller
 	{
 		return response()->json(User::all());
 	}
+
+	public function show($id)
+	{
+		$user = User::find(intval($id));
+		return response()->json($user);
+	}
 }

@@ -1,27 +1,58 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Link } from '@inertiajs/inertia-react'
-import React, { useState } from 'react'
+import moment from 'moment';
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 
 function AllocationForm(props) {
+	const [userName, setUserName] = useState('');
+	const [application, setApplication] = useState({});
 	const [status, setStatus] = useState('Pending');
 	const [data, setData] = useState({
 		official_id: props?.official.id,
 		user_id: parseInt(props?.user_id),
 		comment: '',
-		amount_allocated: ''
+		amount_allocated: '',
+		application_id: props?.application_id
 	});
 
+	// Variables
+	// let date = new Date(application.created_at)
+	// let differenceInMs = Math.abs(new Date() - date)
+	// let newFormat = new moment.duration(differenceInMs)
+
+	useEffect(()=>{
+		fetch(`/api/applications/${props?.application_id}`)
+		.then(resp =>{
+			if(resp.ok){
+				resp.json().then(setApplication);
+			}else{
+				resp.json().then(console.log);
+			}
+		})
+	},[]);
+
+	useEffect(()=>{
+		fetch(`/api/users/${application.user_id}`)
+			.then(resp => {
+				if(resp.ok){
+					resp.json().then(obj => setUserName(obj.first_name));
+				}else{
+					resp.json().then(console.log);
+				}
+			})
+	},[application])
+
 	const notifyWithToast = (message) => toast.success(message, {
-		position: "top-center",
-		autoClose: 5000,
-		hideProgressBar: false,
-		closeOnClick: true,
-		pauseOnHover: true,
-		draggable: true,
-		progress: undefined,
-		theme: "light",
-	});
+											position: "top-center",
+											autoClose: 5000,
+											hideProgressBar: false,
+											closeOnClick: true,
+											pauseOnHover: true,
+											draggable: true,
+											progress: undefined,
+											theme: "light",
+										});
 
 	function updateApplication(){
 		fetch('/api/applications', {
@@ -40,28 +71,8 @@ function AllocationForm(props) {
 		})
 	}
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = (event) => {
 		event.preventDefault()
-		// try {
-		// 	const resp = await fetch(`/api/allocations`, {
-		// 		method: "POST",
-		// 		headers: {
-		// 			"Content-Type": "application/json"
-		// 		},
-		// 		body: JSON.stringify({
-		// 			official_id: data.official_id,
-		// 			user_id: data.user_id,
-		// 			comment: data.comment,
-		// 			amount_allocated: status === "Accepted" ? data.amount_allocated : null
-		// 		})
-		// 	})
-		// 	if(resp.ok){
-		// 		const jsonResponse = await resp.json();
-		// 		console.log(jsonResponse);
-		// 	}
-		// } catch (error) {
-		// 	toast(error.message)
-		// }
 		fetch('/api/allocations',{
 			method: "POST", headers:{'Content-Type': 'application/json'},
 			body: JSON.stringify(data)
@@ -93,6 +104,35 @@ function AllocationForm(props) {
 					>
 					BACK
 				</Link>
+
+				{/* Preview of application */}
+				<hr/>
+				<div className="flex justify-center m-3 border single-card" key={application.id}>
+					<div className="block rounded-lg shadow-lg bg-white max-w-sm text-center">
+						<div className="py-3 px-6 border-b border-gray-300">
+							<span title='username'>
+								{
+									userName ? userName : "____"
+								}
+							</span>
+							: <span title='status'>{application.status ? application.status : "Initiated"}</span>
+					    </div>
+						<div className="p-2">
+					      <h5 className="text-gray-900 text-xl font-medium">{application.amount_requesting}</h5>
+								 
+							<textarea 
+						  	className='description block w-full text-gray-700 rounded px-4 leading-tight'
+							value={application.description} 
+							rows='3'
+							disabled
+							/>
+					      
+						</div>
+					</div>
+				</div>
+				<hr/>
+				{/* End of preview for the the application form */}
+
 				<form className="w-full">
 
 					<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
@@ -102,7 +142,7 @@ function AllocationForm(props) {
           				<option value='Pending'>Pending</option>
           				<option value='Rejected'>Rejected</option>
           				<option value='Accepted'>Accepted</option>
-        			</select>
+        			</select><br/>
 
 					{/* <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0"> */}
 						<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">

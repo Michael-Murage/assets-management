@@ -40,10 +40,6 @@ Route::get('/official-dashboard', function (Request $request) {
 		]);
 	}
 	return redirect('/official-login');
-});
-
-Route::get('/official-menu', function (){
-	return Inertia::render('OfficialDashboard');
 })->name('official-dashboard');
 
 Route::get('official-login', [AuthenticatedOfficialController::class, 'create'])
@@ -53,6 +49,7 @@ Route::post('official-login', [AuthenticatedOfficialController::class, 'store'])
 
 Route::post('logout', function(Request $request){
 	$request->session()->flush();
+	return redirect('/');
 })->name('logout');
 
 Route::get('newapplication', function(){
@@ -73,5 +70,13 @@ Route::get('allocation-form', function(Request $request){
 	}
 	return redirect('/official-dashboard');
 })->name('allocation-form');
+
+Route::post('application', function(Request $request){
+	// $id = $request->query->get('id');
+	$id = $request->getContent();
+	return Inertia::render('ViewApplicationDetails', [
+		'id' => intVal($id)
+	]);
+})->name('application');
 
 require __DIR__.'/auth.php';

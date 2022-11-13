@@ -36,6 +36,7 @@ class Allocation extends Model
 		'user_id',
 		'official_id',
 		'amount_allocated',
-		'comment'
+		'comment',
+		'application_id'
 	];
 }

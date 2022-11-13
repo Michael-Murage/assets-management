@@ -50,20 +50,30 @@ export default function Dashboard(props) {
 									    <div className="py-3 px-6 border-b border-gray-300">
 									      Status: {application.status ? application.status : "Initiated"}
 									    </div>
-									    <div className="p-6">
-									      <h5 className="text-gray-900 text-xl font-medium mb-2">{application.amount_requesting}</h5>
+									    <div className="p-2">
+									      <h5 className="text-gray-900 text-xl font-medium">{application.amount_requesting}</h5>
 										  {/* <div className="description">
 											<p className="text-gray-700 text-base mb-4">
 									        	{application.description}
 									      	</p>
 										  </div> */}
 									      <textarea 
-										  	className='description block w-full text-gray-700 rounded px-4 leading-tight'
+										  	className='description block text-gray-700 rounded px-4 leading-tight'
 										  	value={application.description} 
 											rows='3'
 											disabled
 											/>
-									      {/* <button type="button" className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button> */}
+
+											<Link
+                        						href={route(`application`)}
+												as="button"
+												method='post'
+												data={application.id}
+                        					    className="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
+                        					    >
+                        					        <input type="button" value="View" className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"/>
+                        					</Link>
+
 									    </div>
 									    <div className="py-3 px-6 border-t border-gray-300 text-gray-600">
 									      {newFormat._data.days} days ago at {application.created_at.slice(11, 16)} hrs

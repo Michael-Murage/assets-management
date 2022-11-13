@@ -19,6 +19,7 @@ return new class extends Migration
 			$table->foreignId('official_id')->constrained()->cascadeOnDelete();
 			$table->integer('amount_allocated')->nullable();
 			$table->text('comment')->nullable();
+			$table->foreignId('application_id');
             $table->timestamps();
         });
     }

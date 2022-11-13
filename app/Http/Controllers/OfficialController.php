@@ -44,9 +44,9 @@ class OfficialController extends Controller
      * @param  \App\Models\Official  $official
      * @return \Illuminate\Http\Response
      */
-    public function show(Official $official)
+    public function show(Official $official, Request $request, $key)
     {
-        //
+        return response()->json(Official::find(intval($key)));
     }
 
     /**
