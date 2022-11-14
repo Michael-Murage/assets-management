@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+	font-family: Helvetica;
+}
 .submit-application:hover{
 	background-color: grey;
 }
@@ -36,4 +39,45 @@
 }
 .width-enlarge{
 	min-width: 80vw;
+}
+.register-btn{
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	background-color: #444;
+	color: #090;
+	letter-spacing: 4px;
+	font-weight: 900;
+	text-align: center;
+}
+.register-btn:hover{
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	background-color: #090;
+	color: #000;
+}
+.login-btn{
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	background-color: #444;
+	color: #55f;
+	letter-spacing: 4px;
+	font-weight: 900;
+	text-align: center;
+}
+.login-btn:hover{
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	background-color: #55f;
+	color: #000;
+}
+.official-btn{
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	background-color: #444;
+	color: #f55;
+	font-weight: 900;
+	text-align: center;
+}
+.official-btn:hover{
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	background-color: #f55;
+	color: #000;
+}
+.welcome-cont{
+	box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }

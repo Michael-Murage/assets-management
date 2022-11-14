@@ -179,6 +179,22 @@ function ViewApplicationDetails(props) {
 						{allocationState?.amount_allocated}
 					</p>
 					<br/>
+
+					<p>
+						<span
+						className="block uppercase text-gray-700 text-xl font-bold"
+						>
+							Time: 
+						</span>
+						{allocationState?.updated_at
+						.slice(0, 10)
+						.split('-')
+						.reverse()
+						.join('-')
+						.concat(' at ')
+						}
+						{allocationState?.updated_at.slice(10)}
+					</p>
 				</div>
 			</div>
 		</div>

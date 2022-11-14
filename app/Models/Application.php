@@ -29,7 +29,7 @@ class Application extends Model
      */
 	public function allocation()
 	{
-		return $this->hasOne(Allocation::class);
+		return $this->hasMany(Allocation::class);
 	}
 
 	protected $fillable = [

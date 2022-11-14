@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ApplicationLogo({ className }) {
     return (
-		<img src='/assets/800px-Flag_of_Kenya.svg.png' className={className} alt='Kenyan flag'/>
+	<img src='/assets/lion.png' className={className} alt='Lion logo'/>
     );
 }
 {/* <svg className={className} viewBox="0 0 316 316" xmlns="http://www.w3.org/2000/svg">
