@@ -71,9 +71,13 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function edit(Application $application)
+    public function edit(Application $application, Request $request, $key)
     {
-        //
+        $application = Application::find(intval($key));
+		$application->amount_requesting = $request->amount_requesting;
+		$application->description = $request->description;
+		$application->save();
+		return response()->json(["success" => "status updated"]);
     }
 
     /**

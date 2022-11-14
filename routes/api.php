@@ -34,6 +34,8 @@ Route::patch('applications', [ApplicationController::class, 'update']);
 
 Route::get("applications/{id}", [ApplicationController::class, 'show']);
 
+Route::patch("application/{id}", [ApplicationController::class, 'edit']);
+
 Route::get('users', [UserController::class, 'index']);
 
 Route::get('users/{id}', [UserController::class, 'show']);

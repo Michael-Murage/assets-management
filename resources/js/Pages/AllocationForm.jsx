@@ -107,8 +107,8 @@ function AllocationForm(props) {
 
 				{/* Preview of application */}
 				<hr/>
-				<div className="flex justify-center m-3 border single-card" key={application.id}>
-					<div className="block rounded-lg shadow-lg bg-white max-w-sm text-center">
+				<div className="flex justify-center m-3 border single-card width-enlarge">
+					<div className="block rounded-lg shadow-lg bg-white max-w-sm width-enlarge text-center">
 						<div className="py-3 px-6 border-b border-gray-300">
 							<span title='username'>
 								{

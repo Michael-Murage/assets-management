@@ -29,7 +29,7 @@ export default function OfficialDashboard(props) {
         <AuthenticatedLayout
             auth={props.official}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight"> Official Dashboard</h2>}
+            // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight"> Official Dashboard</h2>}
         >
             <Head title="Dashboard" />
 
@@ -37,17 +37,11 @@ export default function OfficialDashboard(props) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">Recent Applications</div>
-						<Link
-                        	href={route('newapplication')}
-                            className="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
-                            >
-                                New application
-                        </Link>
-						<hr/>
+						
 						<div className='application-cards'>
 							{
 								(Array.isArray(data) ? data : []).map((application) => {
-									let date = new Date(application.created_at)
+									let date = new Date(application.updated_at)
 									let differenceInMs = Math.abs(new Date() - date)
 									let newFormat = new moment.duration(differenceInMs)
 									let userName = users?.find(user => user.id === application.user_id)?.first_name
@@ -79,7 +73,7 @@ export default function OfficialDashboard(props) {
 									      
 									    </div>
 									    <div className="py-3 px-6 border-t border-gray-300 text-gray-600">
-									      {newFormat._data.days} days ago at {application.created_at.slice(11, 16)} hrs
+									      {newFormat._data.days} days ago at {application.updated_at.slice(11, 16)} hrs
 									    </div>
 									  </div>
 									</div>

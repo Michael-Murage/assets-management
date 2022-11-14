@@ -71,12 +71,10 @@ Route::get('allocation-form', function(Request $request){
 	return redirect('/official-dashboard');
 })->name('allocation-form');
 
-Route::post('application', function(Request $request){
-	// $id = $request->query->get('id');
-	$id = $request->getContent();
+Route::get('applications/{id}', function(Request $request, $key){
 	return Inertia::render('ViewApplicationDetails', [
-		'id' => intVal($id)
+		'id' => intVal($key)
 	]);
-})->name('application');
+})->name('applications');
 
 require __DIR__.'/auth.php';

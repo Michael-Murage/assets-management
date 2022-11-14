@@ -21,3 +21,19 @@
 	resize: none;
 	border: none;
 }
+.description-edit{
+	resize: none;
+	margin-bottom: 5px;
+}
+.edit-buttons{
+	display: flex;
+	justify-content: space-between;
+}
+.flex-wrap{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.width-enlarge{
+	min-width: 80vw;
+}

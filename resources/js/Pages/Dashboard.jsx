@@ -23,7 +23,7 @@ export default function Dashboard(props) {
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">User Dashboard</h2>}
+            // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">User Dashboard</h2>}
         >
             <Head title="Dashboard" />
 
@@ -41,7 +41,7 @@ export default function Dashboard(props) {
 						<div className='application-cards'>
 							{
 								(Array.isArray(data) ? data : []).map((application) => {
-									let date = new Date(application.created_at)
+									let date = new Date(application.updated_at)
 									let differenceInMs = Math.abs(new Date() - date)
 									let newFormat = new moment.duration(differenceInMs)
 									return (
@@ -65,10 +65,10 @@ export default function Dashboard(props) {
 											/>
 
 											<Link
-                        						href={route(`application`)}
+                        						href={route(`applications`, {
+													id: application.id
+												})}
 												as="button"
-												method='post'
-												data={application.id}
                         					    className="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
                         					    >
                         					        <input type="button" value="View" className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"/>
@@ -76,7 +76,7 @@ export default function Dashboard(props) {
 
 									    </div>
 									    <div className="py-3 px-6 border-t border-gray-300 text-gray-600">
-									      {newFormat._data.days} days ago at {application.created_at.slice(11, 16)} hrs
+									      {newFormat._data.days} days ago at {application.updated_at.slice(11, 16)} hrs
 									    </div>
 									  </div>
 									</div>
