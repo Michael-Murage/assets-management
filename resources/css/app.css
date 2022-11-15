@@ -44,7 +44,6 @@
 	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 	background-color: #444;
 	color: #090;
-	letter-spacing: 4px;
 	font-weight: 900;
 	text-align: center;
 }
@@ -57,7 +56,6 @@
 	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 	background-color: #444;
 	color: #55f;
-	letter-spacing: 4px;
 	font-weight: 900;
 	text-align: center;
 }
@@ -78,6 +76,9 @@
 	background-color: #f55;
 	color: #000;
 }
-.welcome-cont{
-	box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+@media screen and (min-width: 1024px){
+	.welcome-cont{
+		box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+		padding: 5em 8em 5em 8em;
+	}
 }

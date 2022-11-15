@@ -50,10 +50,11 @@ class RegisteredOfficialController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($official));
+        // event(new Registered($official));
 
-        Auth::guard('official')->login($official);
+        // Auth::guard('official')->login($official);
+		$request->session()->put('key', $official->id);
 
-		return redirect('/official-home');
+		return redirect('/official-dashboard');
     }
 }

@@ -66,7 +66,7 @@ function ViewApplicationDetails(props) {
 			setEditState(()=> !editState)
 		})
 	}
-
+console.log(allocationState);
 	const handleChange = (event) =>{
 		setEditedInfo({...editedInfo, [event.target.name]: event.target.value})
 	}

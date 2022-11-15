@@ -77,4 +77,8 @@ Route::get('applications/{id}', function(Request $request, $key){
 	]);
 })->name('applications');
 
+Route::get('new-official', function(){
+	return Inertia::render('Auth/RegisterOfficial');
+})->name('new-official');
+
 require __DIR__.'/auth.php';
