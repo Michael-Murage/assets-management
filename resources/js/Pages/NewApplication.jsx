@@ -45,7 +45,9 @@ function NewApplication(props) {
 	}
 
 	return (
-	<Authenticated>
+	<Authenticated
+	routePath={route('dashboard')}
+	>
 		<div className="px-12">
 			<Link 
 				href={route('dashboard')}

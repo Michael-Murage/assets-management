@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { get } from 'lodash';
 
-function RegisterOfficial() {
+function RegisterOfficial(props) {
 	const { data, setData, post, processing, errors, reset } = useForm({
         first_name: '',
 		last_name: '',
@@ -33,11 +34,11 @@ function RegisterOfficial() {
     };
 
 	return (
-		<GuestLayout>
+		<AuthenticatedLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
-                <div>
+            <form onSubmit={submit} className='px-10'>
+                <div >
                     <InputLabel forInput="first_name" value="First Name" />
 
                     <TextInput
@@ -146,7 +147,7 @@ function RegisterOfficial() {
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthenticatedLayout>
 	)
 }
 

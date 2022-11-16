@@ -71,7 +71,7 @@ class AllocationController extends Controller
     {
         $application_id = intval($key);
 		$allocation = DB::table('allocations')->where('application_id', $application_id)->get();
-		return response()->json($allocation[($allocation->count() - 1)]);
+		return response()->json($allocation[$allocation->count() - 1]);
     }
 
     /**

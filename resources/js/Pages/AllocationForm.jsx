@@ -96,7 +96,9 @@ function AllocationForm(props) {
 	}
 
 	return (
-		<Authenticated>
+		<Authenticated
+		routePath={route('official-dashboard')}
+		>
 			<div className="px-12">
 				<Link 
 					href={route('official-dashboard')}

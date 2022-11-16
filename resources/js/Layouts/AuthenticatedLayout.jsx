@@ -6,7 +6,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/inertia-react';
 import { ToastContainer } from 'react-toastify';
 
-export default function Authenticated({ auth, header, children }) {
+export default function Authenticated({ auth, header, children, routePath }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 	let authenticatedUserName = !auth?.user ? auth?.first_name : auth?.user.first_name;
 	let authenticatedEmail = !auth?.user ? auth?.email : auth?.user.email
@@ -24,7 +24,7 @@ export default function Authenticated({ auth, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={auth?.user ? route('dashboard') : route('official-dashboard')} active={route().current('dashboard')}>
+                                <NavLink href={routePath} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
                             </div>

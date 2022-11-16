@@ -1,8 +1,9 @@
 import { Head, Link } from '@inertiajs/inertia-react'
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Authenticated from '@/Layouts/AuthenticatedLayout';
 import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import Loading from '@/Components/Loading';
 
 function ViewApplicationDetails(props) {
 	const [application, setApplication] = useState({});
@@ -21,15 +22,21 @@ function ViewApplicationDetails(props) {
 		})
 	}
 
-	const fetchAllocation = (id) =>{
-		fetch(`/api/allocations-show/${id}`)
-		.then(resp => {
-			if(resp.ok) resp.json()
-			.then((allocation) => {
+	const fetchAllocation = async (id) =>{
+		try {
+			const alloc = await fetch(`/api/allocations-show/${id}`)
+			if (alloc.status == 500) {
+				history.back()
+			}
+			if (alloc.ok) {
+				const allocation = await alloc.json();
 				setAllocationState(allocation);
 				fetchOfficial(allocation?.official_id);
-			});
-		})
+			}
+		} catch (error) {
+			history.back();
+		}
+		
 	}
 
 	useEffect(()=>{
@@ -39,7 +46,7 @@ function ViewApplicationDetails(props) {
 			if(resp.ok) resp.json()
 			.then((applicationData)=>{
 				setApplication(applicationData)
-				fetchAllocation(applicationData.id)
+				fetchAllocation(applicationData.id)				
 			})
 		})
 	},[]);
@@ -66,15 +73,17 @@ function ViewApplicationDetails(props) {
 			setEditState(()=> !editState)
 		})
 	}
-console.log(allocationState);
+
 	const handleChange = (event) =>{
 		setEditedInfo({...editedInfo, [event.target.name]: event.target.value})
 	}
 
-	return (
-		<AuthenticatedLayout
+	try {
+		return (
+		<Authenticated
             auth={props.auth}
             errors={props.errors}
+			routePath={route('dashboard')}
         >
         <Head title="Application Details" />
 		<div className="px-12">
@@ -156,7 +165,7 @@ console.log(allocationState);
 						>
 							Reviewed by:
 						</span> 
-						{official?.first_name} {official?.last_name}
+						{official?.first_name || "Nothing at the moment"} {official?.last_name || "Nothing at the moment"}
 					</p>
 					<br/>
 
@@ -198,8 +207,12 @@ console.log(allocationState);
 				</div>
 			</div>
 		</div>
-		</AuthenticatedLayout>
+		</Authenticated>
 	)
+	} catch (error) {
+		return <Loading/>
+	}
+	
 }
 
 export default ViewApplicationDetails
