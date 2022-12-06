@@ -77,8 +77,15 @@ Route::get('applications/{id}', function(Request $request, $key){
 	]);
 })->name('applications');
 
-Route::get('new-official', function(){
-	return Inertia::render('Auth/RegisterOfficial');
+Route::get('new-official', function(Request $request){
+    $id = $request->session()->get('key');
+    $official = Official::find($id);
+    $official->email;
+    if ($official->email == "admin@gmail.com") {
+        return Inertia::render('Auth/RegisterOfficial');   
+    }else{
+        return redirect('/official-dashboard');
+    }
 })->name('new-official');
 
 require __DIR__.'/auth.php';

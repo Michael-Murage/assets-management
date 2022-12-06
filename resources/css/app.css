@@ -41,8 +41,8 @@
 	min-width: 80vw;
 }
 .register-btn{
-	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-	background-color: #444;
+	/* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+	background-color: #efefef;
 	color: #090;
 	font-weight: 900;
 	text-align: center;
@@ -53,8 +53,8 @@
 	color: #000;
 }
 .login-btn{
-	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-	background-color: #444;
+	/* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+	background-color: #ededed;
 	color: #55f;
 	font-weight: 900;
 	text-align: center;
@@ -65,8 +65,8 @@
 	color: #000;
 }
 .official-btn{
-	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-	background-color: #444;
+	/* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+	background-color: #efefef;
 	color: #f55;
 	font-weight: 900;
 	text-align: center;
@@ -81,4 +81,13 @@
 		box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 		padding: 5em 8em 5em 8em;
 	}
+}
+.official-page-tabs{
+    justify-content: space-between;
+}
+.new-official-link{
+    cursor: pointer;
+}
+.new-official-link:hover{
+    color:rgb(67, 67, 255)
 }
